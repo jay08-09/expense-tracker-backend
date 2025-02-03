@@ -4,7 +4,7 @@ const addExpense = async (req, res) => {
     try {
         const { category, amount, date, paymentMethod, notes } = req.body;
         const expense = new Expense({
-            userId: req.user.id, // Automatically assign userId from token
+            userId: req.user.userId, // Automatically assign userId from token
             category,
             amount,
             date,
