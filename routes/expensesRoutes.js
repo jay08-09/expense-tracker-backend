@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', authMiddleware, addExpense)
 router.get('/', authMiddleware, getAllExpenses)
 router.get('/:id', authMiddleware, getExpenseById)
-router.patch('/', authMiddleware, updateExpense)
+router.patch('/:id', authMiddleware, updateExpense)
 router.delete('/', authMiddleware, deleteExpense)
 
 module.exports = router

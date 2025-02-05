@@ -41,7 +41,7 @@ const getExpenseById = async (req, res) => {
 
 const updateExpense = async (req, res) => {
     try {
-        const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        const expense = await Expense.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('userId', 'name email');
         if (!expense) return res.status(404).json({ message: 'Expense not found' });
         res.status(200).json(expense);
     } catch (error) {

@@ -6,6 +6,7 @@ require('colors')
 const userRoutes = require('./routes/usersRoutes');
 const authRoutes = require('./routes/authRoutes')
 const expensesRoutes = require('./routes/expensesRoutes')
+const incomeRoutes = require('./routes/incomeRoutes')
 dotenv.config()
 
 //connect to mongo db
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes)
 app.use('/api/expenses', expensesRoutes)
+app.use('/api/incomes', incomeRoutes)
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`.yellow.bold);
 });
