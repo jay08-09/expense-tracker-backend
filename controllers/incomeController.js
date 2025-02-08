@@ -23,7 +23,7 @@ const getAllIncomes = async (req, res) => {
 const getIncomeById = async (req, res) => {
     try {
         const income = await Income.findById(req.params.id).populate('userId', 'name email');
-        if (!income) return res.status(404).json({ message: 'Expense not found' });
+        if (!income) return res.status(404).json({ message: 'Income not found' });
         res.status(200).json(income);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -42,7 +42,11 @@ const updateIncome = async (req, res) => {
 
 const deleteIncome = async (req, res) => {
     try {
-        const income = await Income.findByIdAndDelete(req.params.id);
+        const income = await Income.findByIdAndUpdate(
+            req.params.id,
+            { isDeleted: true },
+            { new: true }
+        );
         if (!income) return res.status(404).json({ message: 'Income not found' });
         res.status(200).json({ message: 'Expense deleted successfully' });
     } catch (error) {

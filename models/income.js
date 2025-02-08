@@ -7,6 +7,7 @@ const IncomeSchema = new mongoose.Schema(
         amount: { type: Number, required: [true, "Income amount is required."] },
         date: { type: Date, required: [true, "Income date is required."], default: Date.now },
         notes: { type: String },
+        isDeleted: { type: Boolean, default: false }
     },
     { timestamps: true }
 );

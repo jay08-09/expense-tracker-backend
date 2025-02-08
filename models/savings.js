@@ -8,6 +8,7 @@ const SavingsSchema = new mongoose.Schema(
         savedDate: { type: Date, default: Date.now },
         targetDate: { type: Date },
         notes: { type: String },
+        isDeleted: { type: Boolean, default: false }
     },
     {
         timestamps: true,

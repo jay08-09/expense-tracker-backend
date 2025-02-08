@@ -9,6 +9,7 @@ const InvestmentSchema = new mongoose.Schema(
         expectedReturn: { type: Number }, // Expected return percentage
         maturityDate: { type: Date }, // When the investment matures
         notes: { type: String },
+        isDeleted: { type: Boolean, default: false }
     },
     {
         timestamps: true,

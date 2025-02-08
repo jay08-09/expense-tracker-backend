@@ -15,6 +15,7 @@ const ExpenseSchema = new mongoose.Schema(
             required: [true, "Payment method is required."]
         },
         notes: { type: String },
+        isDeleted: { type: Boolean, default: false }
     },
     { timestamps: true } // Automatically adds createdAt and updatedAt
 )
