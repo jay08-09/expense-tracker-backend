@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const cors = require('cors')
 require('colors')
 
 const userRoutes = require('./routes/usersRoutes');
@@ -21,6 +22,9 @@ const PORT = process.env.PORT
 // ✅ Middleware (Important: Add before routes)
 app.use(express.json()); // Parses JSON payloads
 app.use(express.urlencoded({ extended: true })); // Parses URL-encoded data
+
+// OR Allow all origins (Not recommended for production)
+app.use(cors());
 
 // Routes
 app.use('/api/users', userRoutes);

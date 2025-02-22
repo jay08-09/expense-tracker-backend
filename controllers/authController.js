@@ -16,7 +16,7 @@ const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid Password" });
-        } 
+        }
 
         // Generate JWT token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
@@ -30,6 +30,23 @@ const login = async (req, res) => {
     }
 }
 
+const getProfile = async (req, res) => {
+    try {
+        
+        const userId = req.user.userId; // Extracted from middleware
+
+        const user = await User.findById(userId).select("-password"); // Exclude password for security
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.json({ user });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error });
+    }
+};
+
 module.exports = {
     login,
+    getProfile
 };
