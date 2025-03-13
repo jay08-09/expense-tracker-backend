@@ -48,7 +48,7 @@ const deleteIncome = async (req, res) => {
             { new: true }
         );
         if (!income) return res.status(404).json({ message: 'Income not found' });
-        res.status(200).json({ message: 'Expense deleted successfully' });
+        res.status(200).json({ message: 'Data deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

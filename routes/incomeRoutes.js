@@ -8,6 +8,6 @@ router.post('/', authMiddleware, AddIncome)
 router.get('/', authMiddleware, getAllIncomes)
 router.get('/:id', authMiddleware, getIncomeById)
 router.patch('/:id', authMiddleware, updateIncome)
-router.delete('/', authMiddleware, deleteIncome)
+router.delete('/:id', authMiddleware, deleteIncome)
 
 module.exports = router;
