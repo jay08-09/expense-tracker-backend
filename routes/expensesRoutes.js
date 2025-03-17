@@ -8,6 +8,6 @@ router.post('/', authMiddleware, addExpense)
 router.get('/', authMiddleware, getAllExpenses)
 router.get('/:id', authMiddleware, getExpenseById)
 router.patch('/:id', authMiddleware, updateExpense)
-router.delete('/', authMiddleware, deleteExpense)
+router.delete('/:id', authMiddleware, deleteExpense)
 
 module.exports = router

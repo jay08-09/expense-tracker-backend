@@ -13,8 +13,14 @@ const AddIncome = async (req, res) => {
 
 const getAllIncomes = async (req, res) => {
     try {
-        const incomes = await Income.find().populate('userId', 'name email');
-        res.status(200).json(incomes);
+        const incomes = await Income.find({ isDeleted: false }).populate('userId', 'name email');
+        // Format date to "YYYY-MM-DD"
+        const formattedIncomes = incomes?.map(income => ({
+            ...income._doc,
+            date: income.date ? new Date(income.date).toISOString().split('T')[0] : null // Format date
+        }));
+
+        res.status(200).json(formattedIncomes);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

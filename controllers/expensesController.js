@@ -22,8 +22,15 @@ const addExpense = async (req, res) => {
 
 const getAllExpenses = async (req, res) => {
     try {
-        const expenses = await Expense.find().populate('userId', 'name email')
-        res.status(200).json(expenses)
+        const expenses = await Expense.find({ isDeleted: false }).populate('userId', 'name email')
+
+        // Format date to "YYYY-MM-DD"
+        const formattedExpenses = expenses?.map(expense => ({
+            ...expense._doc,
+            date: expense.date ? new Date(expense.date).toISOString().split('T')[0] : null // Format date
+        }));
+
+        res.status(200).json(formattedExpenses);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
