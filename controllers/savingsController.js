@@ -3,8 +3,9 @@ const Savings = require('../models/savings');
 const createSavings = async (req, res) => {
     try {
         const { amount, goal, savedDate, targetDate, notes } = req.body;
-        const newIncome = new Income({ userId: req.user.userId, amount, goal, savedDate, targetDate, notes });
-        await newIncome.save();
+        const newSavings = new Savings({ userId: req.user.userId, amount, goal, savedDate, targetDate, notes });
+        await newSavings.save();
+        res.status(201).json(newSavings)
     }
     catch (error) {
         res.status(400).json({ message: error.message });
@@ -14,7 +15,13 @@ const createSavings = async (req, res) => {
 const getSavings = async (req, res) => {
     try {
         const saving = await Savings.find().populate('userId', 'name email');
-        res.status(200).json(savings);
+        // Format date to "YYYY-MM-DD"
+        const formattedSavings = saving?.map(save => ({
+            ...save._doc,
+            savedDate: save.savedDate ? new Date(save.savedDate).toISOString().split('T')[0] : null ,// Format date
+            targetDate: save.targetDate ? new Date(save.targetDate).toISOString().split('T')[0] : null,// Format date
+        }));
+        res.status(200).json(formattedSavings);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -8,6 +8,6 @@ router.post('/', authMiddleware, createSavings)
 router.get('/', authMiddleware, getSavings)
 router.get('/:id', authMiddleware, getSavingsById)
 router.patch('/:id', authMiddleware, updateSavings)
-router.delete('/', authMiddleware, deleteSavings)
+router.delete('/:id', authMiddleware, deleteSavings)
 
 module.exports = router;
