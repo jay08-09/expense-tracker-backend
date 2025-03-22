@@ -10,6 +10,7 @@ const expensesRoutes = require('./routes/expensesRoutes')
 const incomeRoutes = require('./routes/incomeRoutes')
 const investmentRoutes = require('./routes/investmentsRoutes')
 const savingsRoutes = require('./routes/savingsRoutes')
+const dashboardRoutes = require('./routes/dashboardRoutes')
 
 dotenv.config()
 
@@ -33,6 +34,8 @@ app.use('/api/expenses', expensesRoutes)
 app.use('/api/incomes', incomeRoutes)
 app.use('/api/investments', investmentRoutes)
 app.use('/api/savings', savingsRoutes)
+app.use('/api/dashboard', dashboardRoutes)
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`.yellow.bold);
 });

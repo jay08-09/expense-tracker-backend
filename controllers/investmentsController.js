@@ -3,18 +3,27 @@ const Investment = require('../models/investments');
 const createInvestments = async (req, res) => {
     try {
         const { type, amount, investedDate, expectedReturn, maturityDate, notes } = req.body;
-        const newIncome = new Income({ userId: req.user.userId, type, amount, investedDate, expectedReturn, maturityDate, notes });
-        await newIncome.save();
+        const newInvestment = new Investment({ userId: req.user.userId, type, amount, investedDate, expectedReturn, maturityDate, notes });
+        await newInvestment.save();
+        res.status(201).json(newInvestment)
     }
     catch (error) {
         res.status(400).json({ message: error.message });
     }
 }
 
-const getInvestments = async (req, res) => {
+const getInvestments = async (req, res) => { 
     try {
-        const investments = await Investment.find().populate('userId', 'name email');
-        res.status(200).json(investments);
+        const investments = await Investment.find({ isDeleted: false }).populate('userId', 'name email');
+        // Format date to "YYYY-MM-DD"
+        const formattedInvestments = investments?.map(item => ({
+            ...item._doc,
+            investedDate: item.investedDate ? new Date(item.investedDate).toISOString().split('T')[0] : null,// Format date
+            maturityDate: item.maturityDate ? new Date(item.maturityDate).toISOString().split('T')[0] : null // Format date
+        }));
+
+        res.status(200).json(formattedInvestments);
+
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

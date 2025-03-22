@@ -14,7 +14,7 @@ const createSavings = async (req, res) => {
 
 const getSavings = async (req, res) => {
     try {
-        const saving = await Savings.find().populate('userId', 'name email');
+        const saving = await Savings.find({ isDeleted: false }).populate('userId', 'name email');
         // Format date to "YYYY-MM-DD"
         const formattedSavings = saving?.map(save => ({
             ...save._doc,
